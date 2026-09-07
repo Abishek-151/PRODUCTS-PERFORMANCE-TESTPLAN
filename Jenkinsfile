@@ -1,9 +1,9 @@
 pipeline{
   agent any
   stages{
-    stage('Check Docker'){
+    stage('Build Docker Image'){
       steps{
-        bat '"C:\\Users\\admin\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" --version'
+        bat '"C:\\Users\\admin\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build -t products-jmeter .'
       }
     }
     stage('Run JMeter Test'){
@@ -11,7 +11,7 @@ pipeline{
         bat '''
         if exist "result.jtl" del /f /q/ "result.jtl"
         if exist "html-report" rmdir /s /q "html-report"
-        docker run --rm ^ -v "%WORKSPACE%:/results" ^
+        "C:\Users\admin\AppData\Local\Programs\DockerDesktop\resources\bin\docker.exe" run --rm ^ -v "%WORKSPACE%:/results" ^
         products-jmeter ^ -n -t "/test/Products Performance Test Plan.jmx" ^ -l /results/result.jtl ^ -e -o /results/html-report
         '''
       }
