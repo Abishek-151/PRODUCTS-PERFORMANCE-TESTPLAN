@@ -1,9 +1,9 @@
 pipeline{
   agent any
   stages{
-    stage('Build Docker Image'){
+    stage('Check Docker'){
       steps{
-        bat 'docker build -t products-jmeter .'
+        bat '"C:\\Users\\admin\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" --version'
       }
     }
     stage('Run JMeter Test'){
